@@ -4,9 +4,10 @@ export const S = create({checkTypes, env});
 
 import {Matrix, matrixFromElements} from "../../lib/LibMain";
 
-export const matrixEquals = (m1:Matrix) => (es2:Array<number> | Float32Array):boolean => {
-    const es1 = m1.elements;
-
+export const matrixEquals = (m1:Matrix) => (es2:Array<number> | Float32Array):boolean => 
+    arrayEquals(m1.elements) (es2);
+    
+export const arrayEquals = (es1:Array<number> | Float32Array) => (es2:Array<number> | Float32Array):boolean => {
     if(es1.length !== es2.length) {
         return false;
     }

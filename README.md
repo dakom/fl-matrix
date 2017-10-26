@@ -16,7 +16,7 @@ See [Roadmap](#Roadmap) for details
 
 # Examples
 
-Check out the different examples in the [unit tests]("src/tests/unit")
+Check out the different examples in the [unit tests](src/tests/unit)
 
 # API
 
@@ -41,8 +41,7 @@ Check out the different examples in the [unit tests]("src/tests/unit")
 - [x] Concat (add)
 - [x] Category (identity)
 - [x] Setoid (equal)
-- [/] Semigroupoid / compose (multiply)
-  - [ ] Finish tests (add case by hand)
+- [x] Semigroupoid / compose (multiply)
 - [ ] Group (invert)
 
 ## Sanctuary definitions

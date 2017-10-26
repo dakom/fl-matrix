@@ -27,6 +27,7 @@
     "cross-env": "5.1.0",
     "fuse-box": "2.3.3",
     "fuse-test-runner": "1.0.15",
+    "gl-matrix": "^2.4.0",
     "live-server": "^1.2.0",
     "rimraf": "2.6.2",
     "sanctuary": "0.13.2",

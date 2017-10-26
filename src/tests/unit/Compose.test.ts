@@ -1,7 +1,8 @@
 
 import { expect } from 'chai';
 import { Matrix, emptyMatrix, matrixFromElements } from "../../lib/LibMain";
-import { S, matrixEquals, randomMatrix } from "./TestLibs";
+import { S, matrixEquals, arrayEquals, randomMatrix } from "./TestLibs";
+import {mat4} from "gl-matrix";
 
 export class Compose {
 
@@ -21,14 +22,41 @@ export class Compose {
         done();
     }
 
-    'Matrix Vector'(done) {
-        const r1 = randomMatrix (3) (3);
-        const r2 = randomMatrix (3) (1);
+    'Matrix 4x4'(done) {
+        const r1 = randomMatrix (4) (4);
+        const r2 = randomMatrix (4) (4);
+        
+        //Check the multiplication with gl-matrix
 
-        const res = S.compose(r1) (r2);
+        //Direct
+        expect(
+            arrayEquals 
+                (mat4.multiply(mat4.create(), r2.elements, r1.elements))
+                (r1.compose(r2).elements)
+        ).to.be.true;
 
-        //TODO - add up numbers by hand
-        res.log();
+        //Sanctuary
+        expect(
+            arrayEquals 
+                (mat4.multiply(mat4.create(), r2.elements, r1.elements))
+                (S.compose(r1) (r2).elements)
+        ).to.be.true;
+
+        done();
+    }
+
+    'Matrix x Vector allowed'(done) {
+        const r1 = randomMatrix (4) (1);
+        const r2 = randomMatrix (1) (4);
+        
+        const res1 = r1.compose(r2);
+        expect(res1).to.not.be.undefined;
+
+        const r3 = randomMatrix (1) (4);
+        const r4 = randomMatrix (4) (1);
+        
+        const res2 = r3.compose(r4);
+        expect(res2).to.not.be.undefined;
 
         done();
     }

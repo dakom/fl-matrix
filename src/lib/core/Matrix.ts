@@ -45,7 +45,7 @@ export const emptyMatrix = (nCols:number) => (nRows:number):Matrix => {
     m.getValueAtPosition = getValueAtPosition(m);
     m.setElementAt = setElementAt(m);
     m.concat = concat(m);
-    m.compose = compose(m);
+    m.compose = other => compose (other) (m);
     m.toString = () => mToString(m);
     m.log = () => console.log(m.toString());
     m.id = () => id(m);
@@ -54,7 +54,7 @@ export const emptyMatrix = (nCols:number) => (nRows:number):Matrix => {
     m['fantasy-land/concat'] = concat(m);
     m['fantasy-land/id'] = () => id(m);
     m['fantasy-land/equals'] = equals(m);
-    m['fantasy-land/compose'] = compose(m);
+    m['fantasy-land/compose'] = compose(m); //S.compose flips it around for us.
 
     return m;
 }
