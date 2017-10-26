@@ -82,6 +82,14 @@ All functions are unary and are therefore called like `foo (bar) (baz)`. For exa
 Every function is available as a generic function and, for convenience, as a method on a created Matrix object.
 For the sake of brevity they are listed here in their method form
 
+### Static-only (not methods)
+* **emptyMatrix** :: (nCols: number) => (nRows: number) => Matrix;
+  * Create an empty matrix
+* **matrixFromElements** :: (nCols: number) => (nRows: number) => (elements: Float32Array) => Matrix;
+  * Create a matrix from data
+* **identityMatrix** : (nCols: number) => (nRows: number) => Matrix;
+  * Create an identity matrix
+
 ### Fantasy-land compatible transformations
 * **compose** :: (other: any) => Matrix;
   * Multiplies this matrix by the other
