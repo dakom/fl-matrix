@@ -1,26 +1,24 @@
 [![Build Status](https://travis-ci.org/dakom/fl-matrix.svg?branch=master)](https://travis-ci.org/dakom/fl-matrix)
 
-# Fantasy-Land Matrix
+# Fl-Matrix (Fantasy-Land Matrix)
 
-Provides a wrapper for functional programming with matrices. The data structure is in _column-major_ order like what webgl expects.
+Provides a wrapper for functional programming with matrices.
 
-The only methods provided are those that are required for [fantasy-land](https://github.com/fantasyland/fantasy-land) and [Sanctuary](https://sanctuary.js.org/) compatibility - as well as a generic map/reduce for rolling your own transformations.
-
-For faster common matrix operations, consider roundtripping data with [gl-matrix](http://glmatrix.net/) or [vec-la](https://github.com/francisrstokes/vec-la) or anything else you can feed into `matrixFromElements()`
+Read the [Api Docs](docs/API.md) for more detail.
 
 # Status
 
-Very early alpha, not ready for production yet. 
-
-See [Roadmap](#Roadmap) for details
+Probably production-ready for everything ticked on the [Roadmap](#Roadmap), as they've been tested to some extant.
 
 # Examples
 
 Check out the different examples in the [unit tests](src/tests/unit)
 
-# API
+# Install
 
-[TODO](docs/API.md)
+Install via `npm install fl-matrix` or load in your browser from https://unpkg.com/fl-matrix/dist/fl-matrix.browser-production.js
+
+----
 
 # Roadmap
 
@@ -54,5 +52,5 @@ Check out the different examples in the [unit tests](src/tests/unit)
 - [x] Target npm
 - [x] Target external import
 - [x] Bundle Typescript definitions
-- [ ] Generate API docs
-- [ ] Now that equals tests pass, remove per-element tests
+- [x] Write API docs
+- [ ] Show webgl demo via fiddle

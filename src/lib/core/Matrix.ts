@@ -1,6 +1,7 @@
 import {map, concat, clone, reduce, compose, id, equals} from "./Matrix-Functions";
 import {MatrixElement, getElementAtPosition, getValueAtIndex, getValueAtPosition, setElementAt, getIndexAtPosition} from "./Matrix-Elements";
 
+/*
 export interface Matrix {
     elements: Float32Array;
     nCols: number;
@@ -20,10 +21,47 @@ export interface Matrix {
     reduce: (fn: ((m:Matrix) => (a:MatrixElement) => Matrix)) => (dest:Matrix) => Matrix;
     log: () => void;
 }
+*/
 
 /* Creator functions and helpers */
 
+export class Matrix {
+    public readonly elements:Float32Array;
+    public readonly nCols:number;
+    public readonly nRows:number;
+
+    constructor(nCols:number, nRows:number) {
+        this.elements = new Float32Array(nCols * nRows);
+        this.nCols = nCols;
+        this.nRows = nRows;
+    }
+
+    public reduce = reduce(this);
+    public map = map(this);
+    public clone = () => clone(this);
+    public getIndexAtPosition = getIndexAtPosition(this);
+    public getElementAtPosition = getElementAtPosition(this);
+    public getValueAtIndex = getValueAtIndex(this);
+    public getValueAtPosition = getValueAtPosition(this);
+    public setElementAt = setElementAt(this);
+    public concat = concat(this);
+    public compose = other => compose (other) (this);
+    public toString = () => mToString(this);
+    public log = () => console.log(this.toString());
+    public id = () => id(this);
+    public equals = equals(this);
+    
+    public 'fantasy-land/concat' = concat(this);
+    public 'fantasy-land/id' = () => id(this);
+    public 'fantasy-land/equals' = equals(this);
+    public 'fantasy-land/compose' = compose(this); //S.compose flips it around for us.
+    
+}
+
 //Creates an empty matrix with no data populated
+export const emptyMatrix = (nCols:number) => (nRows:number):Matrix =>
+    new Matrix(nCols, nRows);
+/*
 export const emptyMatrix = (nCols:number) => (nRows:number):Matrix => {
     const elements = new Float32Array(nCols * nRows);
 
@@ -58,6 +96,7 @@ export const emptyMatrix = (nCols:number) => (nRows:number):Matrix => {
 
     return m;
 }
+*/
 
 //Creates a matrix from predefined data
 export const matrixFromElements = (nCols:number) => (nRows:number) => (elements:Float32Array):Matrix => {
