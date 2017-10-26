@@ -45,7 +45,7 @@ export const concat = (m1: Matrix) => (m2: Matrix): Matrix =>
 //Compose - multiplies two matrices together (where the left consumes the right)
 export const compose = (m2: Matrix) => (m1: Matrix): Matrix => {
     if (m1.nRows !== m2.nCols) {
-        console.error(`Rows on the left must match columns on the right (${m1.nRows} != ${m2.nCols})`);
+        console.error(`Composition not allowed with joining rows of (${m1.nRows} and columns of ${m2.nCols})`);
         return undefined;
     }
 
