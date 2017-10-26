@@ -61,3 +61,4 @@ The dev setup is configured to enable both unit testing and iterative browser-ba
 - [x] Bundle Typescript definitions
 - [x] Write API docs
 - [ ] Show webgl demo via fiddle
+- [ ] Rewrite API docs to use type signatures rather than TS declarations
