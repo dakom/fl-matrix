@@ -7,10 +7,11 @@ The primary goal of `fl-matrix` is to provide [Fantasy-land](https://github.com/
 For example:
 ```
 const scaleBy = m => n =>
-	S.compose(
-  	    m.map(el => el.column === el.row ? n : 0),
-  	    m,
-    )
+	S.compose
+  (
+    m.map(el => el.column === el.row ? n : 0),
+    m
+  );
 
 const myIdentity = identityMatrix (3) (3)
 

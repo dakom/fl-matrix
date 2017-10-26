@@ -8,7 +8,7 @@ Read the [Api Docs](docs/API.md) for more detail.
 
 # Status
 
-Probably production-ready for everything ticked on the [Roadmap](#Roadmap), as they've been tested to some extant.
+_Probably_ production-ready for everything ticked on the [Roadmap](#Roadmap), as they've been tested to some extant - but it hasn't been used in anything real yet (fiddle coming soon!)
 
 # Examples
 
