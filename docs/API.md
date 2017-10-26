@@ -6,8 +6,8 @@ The primary goal of `fl-matrix` is to provide [Fantasy-land](https://github.com/
 
 For example:
 ```
-const scaleBy = m => n =>
-	S.compose
+const scaleBy = m => n => 
+  S.compose
   (
     m.map(el => el.column === el.row ? n : 0),
     m
