@@ -6,7 +6,7 @@ Provides a wrapper for functional programming with matrices. The data structure 
 
 The only methods provided are those that are required for [fantasy-land](https://github.com/fantasyland/fantasy-land) and [Sanctuary](https://sanctuary.js.org/) compatibility.
 
-For additional matrix operations, consider roundtripping data with [gl-matrix](http://glmatrix.net/).
+For additional matrix operations, consider roundtripping data with [gl-matrix](http://glmatrix.net/) or [vec-la](https://github.com/francisrstokes/vec-la) or anything else you can feed into `setElements()`
 
 # Status
 
