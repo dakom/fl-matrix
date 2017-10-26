@@ -4,9 +4,28 @@
 
 The primary goal of `fl-matrix` is to provide [Fantasy-land](https://github.com/fantasyland/fantasy-land) and [Sanctuary](https://sanctuary.js.org/) compatibility for matrix composition - as well as a generic map/reduce for rolling your own transformations.
 
-A secondary goal is specifically to ease development for webgl. For this reason, the data layout is column-major. Similarly, the `.elements` may be treated exactly as the matrices from other libraries if they are the same dimensions, and Float32Arrays may be loaded quickly into Matrix wrappers via `matrixFromElements()`
+For example:
+```
+const scaleBy = m => n =>
+	S.compose(
+  	    m.map(el => el.column === el.row ? n : 0),
+  	    m,
+    )
 
-On that note - the map/reduce here are great for quick and powerful one-liners, but for faster common matrix operations, consider roundtripping data with [gl-matrix](http://glmatrix.net/) or [vec-la](https://github.com/francisrstokes/vec-la) or anything else you can feed into `matrixFromElements()`. This library intentionally does not provide utilities for common transformations like rotation, scale, translate, etc.
+const myIdentity = identityMatrix (3) (3)
+
+scaleBy (myIdentity) (4).log();
+
+/*
+4 0 0
+0 4 0
+0 0 4
+*/
+```
+
+A secondary goal is specifically to ease development for webgl. For this reason, the data layout is column-major. The `.elements` may be treated exactly as the matrices from other libraries if they are the same dimensions, and Float32Arrays may be loaded quickly into Matrix wrappers via `matrixFromElements()`
+
+On that note - the map/reduce here are great for fun and powerful one-liners, but for faster common matrix operations, consider roundtripping data with [gl-matrix](http://glmatrix.net/) or [vec-la](https://github.com/francisrstokes/vec-la) or anything else you can feed into `matrixFromElements()`. This library intentionally does not provide utilities for common transformations like rotation, scale, translate, etc.
 
 Every transformation returns a new copy of the class. The properties are marked read-only in Typescript though there is no deep-freezing.
 
@@ -32,6 +51,7 @@ const seqId = seq.map(el => el.column === el.row ? 1 : 0);
 0 1 0
 0 0 1
 ```
+
 
 ## Typescript
 
