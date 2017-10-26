@@ -1,0 +1,30 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "preserveConstEnums": true,
+        "module": "commonjs",
+        "outDir": "dist/tsc",
+        "declarationDir": "dist/tsc/typings",
+        "declaration": true,
+        
+        "target": "es5",
+        "lib": [
+            "es6",
+            "es5",
+            "dom"
+        ]
+    },
+    "include": [
+        "**/*.ts",
+        "**/*.tsx"    
+    ],
+    
+    "exclude": [
+        "node_modules",
+        "dist",
+        "build",
+        "coverage"
+    ]
+}

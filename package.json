@@ -1,0 +1,36 @@
+{
+  "name": "fl-matrix",
+  "version": "0.0.1-alpha",
+  "description": "Fantasy-Land Matrix",
+  "main": "./dist/fl-matrix.production.js",
+  "typings": "./dist/typings/LibMain.d.ts",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "dev": "cross-env BUILD_TYPE=dev node fuse.js",
+    "dev:production": "cross-env BUILD_TYPE=dev-production node fuse.js",
+    "test": "npm run test:unit",
+    "test:unit": "cross-env BUILD_TYPE=test-unit node fuse.js",
+    "test:external": "live-server --mount=/dist:./dist ./src/tests/external-browser",
+    "build": "npm run clean && npm run _build:plain && npm run _build:production && npm run _build:browser:production && npm run _build:browser:plain && npm run _build:tsc",
+    "_build:plain": "cross-env BUILD_TYPE=build-plain node fuse.js && mv ./dist/fl-matrix.js.map ./dist/fl-matrix.dev.js.map",
+    "_build:production": "cross-env BUILD_TYPE=build-production node fuse.js",
+    "_build:browser:production": "cross-env BUILD_TYPE=build-browser-production node fuse.js",
+    "_build:browser:plain": "cross-env BUILD_TYPE=build-browser-plain node fuse.js && mv ./dist/fl-matrix.js.map ./dist/fl-matrix.browser-dev.js.map",
+    "_build:tsc": "tsc && mv ./dist/tsc/typings/lib ./dist/typings && rimraf ./dist/tsc"
+  },
+  "author": "David Komer",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "4.0.4",
+    "@types/node": "8.0.47",
+    "chai": "^4.1.2",
+    "cross-env": "5.1.0",
+    "fuse-box": "2.3.3",
+    "fuse-test-runner": "1.0.15",
+    "live-server": "^1.2.0",
+    "rimraf": "2.6.2",
+    "sanctuary": "0.13.2",
+    "typescript": "2.5.3",
+    "uglify-js": "3.1.5"
+  }
+}
