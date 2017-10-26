@@ -1,12 +1,21 @@
-import {Matrix, identity, empty} from "../lib/LibMain";
+import {Matrix, emptyMatrix, matrixFromElements} from "../lib/LibMain";
 
 import {create, env} from 'sanctuary';
 const checkTypes = false; //process.env.BUILD_TYPE !== 'build';
 const S = create({checkTypes, env});
 
+export const randomMatrix = (nCols:number) => (nRows:number) => {
+    const elements = new Float32Array(nCols * nRows);
 
-const m = identity (3) (3);
+    for(let i = 0; i < elements.length; i++) {
+        elements[i] = Math.ceil(Math.random() * 42);
+    }
 
-const allOnes = empty(3) (3).map(() => 1);
-const seq = allOnes.map(el => el.index);
-const res = S.concat(allOnes) (seq);
+    return matrixFromElements (nCols) (nRows) (elements);
+}
+
+const r1 = randomMatrix (3) (3);
+const res = S.compose (r1) (r1.id());
+console.log(res)
+
+

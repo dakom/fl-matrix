@@ -1,12 +1,12 @@
 
 import { expect } from 'chai';
-import {Matrix, identity, empty} from "../../lib/LibMain";
+import {Matrix, emptyMatrix} from "../../lib/LibMain";
 import {matrixEquals} from "./TestLibs";
 
 export class Map {
     
     'Map'(done) {
-        const allOnes = empty (3) (3).map(() => 1);
+        const allOnes = emptyMatrix (3) (3).map(() => 1);
         const seq = allOnes.map(el => el.index);
 
         expect(

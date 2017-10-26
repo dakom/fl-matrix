@@ -1,14 +1,14 @@
 
 import { expect } from 'chai';
-import {Matrix, identity, empty} from "../../lib/LibMain";
+import {Matrix, emptyMatrix} from "../../lib/LibMain";
 import {S,matrixEquals} from "./TestLibs";
 
-const allOnes = empty (3) (3).map(() => 1);
+const allOnes = emptyMatrix (3) (3).map(() => 1);
 const seq = allOnes.map(el => el.index);
 
 export class Concat {
     
-    'Concat - direct'(done) {
+    'Direct'(done) {
         
         const res = seq.concat(allOnes);
         
@@ -21,7 +21,7 @@ export class Concat {
         done();
     }
 
-    'Concat - Sanctuary'(done) {
+    'Sanctuary'(done) {
         const res = S.concat (seq) (allOnes);
         
         expect(
