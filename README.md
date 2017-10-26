@@ -2,7 +2,7 @@
 
 # Fl-Matrix (Fantasy-Land Matrix)
 
-Provides a wrapper for functional programming with matrices.
+Provides a lightweight (4Kb) wrapper for functional programming with matrices.
 
 Read the [Api Docs](docs/API.md) for more detail.
 
@@ -16,7 +16,14 @@ Check out the different examples in the [unit tests](src/tests/unit)
 
 # Install
 
-Install via `npm install fl-matrix` or load in your browser from https://unpkg.com/fl-matrix/dist/fl-matrix.browser-production.js
+1. via `npm install fl-matrix`
+2. via browser from https://unpkg.com/fl-matrix/dist/fl-matrix.browser-production.js (it is made available via FlMatrix globals in this case)
+
+# Development
+
+Library source is [here](src/lib)
+
+The dev setup is configured to enable both unit testing and iterative browser-based developing, powered by [Fuse-Box](http://fuse-box.org/)
 
 ----
 

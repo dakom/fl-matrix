@@ -15,19 +15,27 @@ The reason `map()` and `reduce()` are not fl-compatible is because they are give
 ```
 const allOnes = emptyMatrix (3) (3).map(() => 1);
 const seq = allOnes.map(el => el.index);
+const seqId = seq.map(el => el.column === el.row ? 1 : 0);
 
-/* allOnes:
+// allOnes:
 1 1 1
 1 1 1
 1 1 1
-*/
 
-/* seq: (column-major order like webgl)
+// seq:
 0 3 6
 1 4 7
 2 5 8
-*/
+
+//seqId:
+1 0 0
+0 1 0
+0 0 1
 ```
+
+## Typescript
+
+The library is written in Typescript and all the definitions are exported.
 
 ## Creating a matrix
 
