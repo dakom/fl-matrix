@@ -1,27 +1,5 @@
 import {map, concat, clone, reduce, compose, id, equals} from "./Matrix-Functions";
-import {MatrixElement, getElementAtPosition, getValueAtIndex, getValueAtPosition, setElementAt, getIndexAtPosition} from "./Matrix-Elements";
-
-/*
-export interface Matrix {
-    elements: Float32Array;
-    nCols: number;
-    nRows: number;
-    clone: () => Matrix;
-    id: () => Matrix;
-    getIndexAtPosition: (p1:number) => (p2:number) => number;
-    getElementAtPosition: (p1:number) => (p2:number) => MatrixElement;
-    getValueAtPosition: (p1:number) => (p2:number) => number;
-    getValueAtIndex: (index:number) => number;
-    setElementAt: (p1:number) => (p2:number) => (val:number) => Matrix;
-    concat: (m:Matrix) => Matrix;
-    compose: (m:Matrix) => Matrix;
-    toString: () => string;
-    map: (fn: ((a:MatrixElement) => number)) => Matrix;
-    equals: (m:Matrix) => boolean;
-    reduce: (fn: ((m:Matrix) => (a:MatrixElement) => Matrix)) => (dest:Matrix) => Matrix;
-    log: () => void;
-}
-*/
+import {MatrixElement, getElementAtPosition, getValueAtIndex, getValueAtPosition, setElementAtPosition, getIndexAtPosition} from "./Matrix-Elements";
 
 /* Creator functions and helpers */
 
@@ -43,7 +21,7 @@ export class Matrix {
     public getElementAtPosition = getElementAtPosition(this);
     public getValueAtIndex = getValueAtIndex(this);
     public getValueAtPosition = getValueAtPosition(this);
-    public setElementAt = setElementAt(this);
+    public setElementAtPosition = setElementAtPosition(this);
     public concat = concat(this);
     public compose = other => compose (other) (this);
     public toString = () => mToString(this);
@@ -61,42 +39,6 @@ export class Matrix {
 //Creates an empty matrix with no data populated
 export const emptyMatrix = (nCols:number) => (nRows:number):Matrix =>
     new Matrix(nCols, nRows);
-/*
-export const emptyMatrix = (nCols:number) => (nRows:number):Matrix => {
-    const elements = new Float32Array(nCols * nRows);
-
-    //Assign all the data
-    const m = {
-        elements: elements,
-        nCols: nCols,
-        nRows: nRows
-    } as Matrix;
-    
-    //Assign all the functions
-    
-    m.reduce = reduce(m);
-    m.map = map(m);
-    m.clone = () => clone(m);
-    m.getIndexAtPosition = getIndexAtPosition(m);
-    m.getElementAtPosition = getElementAtPosition(m);
-    m.getValueAtIndex = getValueAtIndex(m);
-    m.getValueAtPosition = getValueAtPosition(m);
-    m.setElementAt = setElementAt(m);
-    m.concat = concat(m);
-    m.compose = other => compose (other) (m);
-    m.toString = () => mToString(m);
-    m.log = () => console.log(m.toString());
-    m.id = () => id(m);
-    m.equals = equals(m);
-
-    m['fantasy-land/concat'] = concat(m);
-    m['fantasy-land/id'] = () => id(m);
-    m['fantasy-land/equals'] = equals(m);
-    m['fantasy-land/compose'] = compose(m); //S.compose flips it around for us.
-
-    return m;
-}
-*/
 
 //Creates a matrix from predefined data
 export const matrixFromElements = (nCols:number) => (nRows:number) => (elements:Float32Array):Matrix => {

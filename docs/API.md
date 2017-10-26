@@ -6,11 +6,11 @@ The primary goal of `fl-matrix` is to provide [Fantasy-land](https://github.com/
 
 A secondary goal is specifically to ease development for webgl. For this reason, the data layout is column-major. Similarly, the `.elements` may be treated exactly as the matrices from other libraries if they are the same dimensions, and Float32Arrays may be loaded quickly into Matrix wrappers via `matrixFromElements()`
 
-On that note - the map/reduce here are great for quick and powerful one-liners, but For faster common matrix operations, consider roundtripping data with [gl-matrix](http://glmatrix.net/) or [vec-la](https://github.com/francisrstokes/vec-la) or anything else you can feed into `matrixFromElements()`. This library intentionally does not provide utilities for common transformations like rotation, scale, translate, etc.
+On that note - the map/reduce here are great for quick and powerful one-liners, but for faster common matrix operations, consider roundtripping data with [gl-matrix](http://glmatrix.net/) or [vec-la](https://github.com/francisrstokes/vec-la) or anything else you can feed into `matrixFromElements()`. This library intentionally does not provide utilities for common transformations like rotation, scale, translate, etc.
 
 Every transformation returns a new copy of the class. The properties are marked read-only in Typescript though there is no deep-freezing.
 
-`map()` and `reduce()` are not fl-compatible because they are given MatrixElements which have extra metadata like the column and row number. This is far more fun and useful than just the numbers alone in this case. For example:
+The reason `map()` and `reduce()` are not fl-compatible is because they are given MatrixElements which have extra metadata like the column and row number. This is far more fun and useful than just the numbers alone in this case. For example:
 
 ```
 const allOnes = emptyMatrix (3) (3).map(() => 1);
@@ -54,23 +54,38 @@ Every function is available as a generic function and, for convenience, as a met
 For the sake of brevity they are listed here in their method form
 
 ### Fantasy-land compatible transformations
-* compose (fl-compatible): (other: any) => Matrix;
-* concat (fl-compatible): (m2: Matrix) => Matrix;
-* id (fl-compatible): () => Matrix;
-* equals (fl-compatible): (m2: Matrix) => boolean;
+* **compose** :: (other: any) => Matrix;
+  * Multiplies this matrix by the other
+* **concat** :: (m2: Matrix) => Matrix;
+  * Adds the other to this matrix
+* **id** :: () => Matrix;
+  * Generates an identity matrix with the same dimensions
+* **equals** :: (m2: Matrix) => boolean;
+  * Returns whether the two matrices are equal
 
 ### Non-fantasy-land functional transformations
-* reduce: (fn: (m: Matrix) => (a: MatrixElement) => Matrix) => (dest: Matrix) => Matrix;
-* map: (fn: (a: MatrixElement) => number) => Matrix;
-* clone: () => Matrix;
+* **reduce** :: (fn: (m: Matrix) => (a: MatrixElement) => Matrix) => (dest: Matrix) => Matrix;
+  * Maps over all the elements to return a new Matrix of any kind
+  * Expects a MatrixElements->Matrix function to convert matrices
+* **map** :: (fn: (a: MatrixElement) => number) => Matrix;
+  * Maps over all the elements to return a new Matrix of the same dimensions
+  * Expects a MatrixElements->number function to convert matrices
+* **clone** :: () => Matrix;
+  * Clones the data and the shape
 
 ### Helpers to access elements and values
-* getIndexAtPosition: (c: number) => (r: number) => number;
-* getElementAtPosition: (c: number) => (r: number) => MatrixElement;
-* getValueAtIndex: (index: number) => number;
-* getValueAtPosition: (c: number) => (r: number) => number;
-* setElementAt: (c: number) => (r: number) => (val: number) => Matrix;
+* **getIndexAtPosition** :: (c: number) => (r: number) => number;
+  * Returns the index in the `elements` based on the column/row position
+* **getElementAtPosition** :: (c: number) => (r: number) => MatrixElement;
+  * Returns the MatrixElement at a given column/row position
+* **getValueAtIndex** :: (index: number) => number;
+  * Returns a value at a given index in the `elements`
+* **getValueAtPosition** :: (c: number) => (r: number) => number;
+  * Returns a value at a given column/row position
+* **setElementAtPosition** :: (c: number) => (r: number) => (val: number) => Matrix;
+  * Sets the value of the element at a given column/row position
 
 ### Side effects
-* toString: () => string;
-* log: () => void;
+* **toString** :: () => string;
+* **log** :: () => void;
+* **elements[n]** :: the elements property itself is not frozen and may be changed directly

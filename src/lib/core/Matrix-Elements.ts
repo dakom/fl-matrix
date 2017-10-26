@@ -28,7 +28,7 @@ export const getValueAtPosition = (m1:Matrix) => (c:number) => (r:number):number
     m1.elements[m1.getIndexAtPosition (c) (r)];
 
 //Set a single element
-export const setElementAt = (m1:Matrix) => (c:number) => (r:number) => (val:number):Matrix => {
+export const setElementAtPosition = (m1:Matrix) => (c:number) => (r:number) => (val:number):Matrix => {
     const m = m1.clone();
     m1.elements[m1.getIndexAtPosition (c) (r)] = val;
     return m;
