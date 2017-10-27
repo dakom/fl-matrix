@@ -69,25 +69,26 @@ Vectors are nothing more than 1-column matrices, however they are very commonly 
 
 ## MatrixElement
 
-The MatrixElement interface is defined as such:
-```
-MatrixElement {
-    value: number; //the actual value of the element
-    index: number; //the index in the Matrix's elements array
-    column: number; //the column index
-    row: number; //the row index
-}
-```
+MatrixElements contain no functions, they are pure objects with the following properties:
 
-### Matrix
+* **value** :: number;
+  * actual value of the element
+* **index** : number;
+  * index in the Matrix's elements array
+* **column** :: number
+  * column index
+* **row** :: number
+  * row index
+
+## Matrix
 
 The Matrix object contains the following properties:
 
 * **elements[n]** :: Float64Array
   * the elements property itself is not frozen and may be changed directly
-* nCols :: number (readonly)
+* **nCols** :: number (readonly)
   * the number of columns in a matrix
-* nRows :: number (readonly)
+* **nRows** :: number (readonly)
   * the number of rows in a matrix
 
 ## Creating a Matrix
