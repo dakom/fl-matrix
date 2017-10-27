@@ -89,7 +89,7 @@ All functions are unary and are therefore called like `foo (bar) (baz)`. For exa
 * **emptyMatrix** :: (nCols: number) => (nRows: number) => Matrix;
   * Create an empty matrix
 * **matrixFromElements** :: (nCols: number) => (nRows: number) => (elements: ArrayLike<number>) => Matrix;
-  * Create a matrix from a copy of the data (and the data may be any ArrayLike<number>)
+  * Create a matrix from a copy of the data (which may be any ArrayLike<number>)
 * **identityMatrix** : (nCols: number) => (nRows: number) => Matrix;
   * Create an identity matrix
 * **matrixFromElementsDirect** :: (nCols: number) => (nRows: number) => (elements: Float32Array) => Matrix
@@ -119,6 +119,8 @@ Additionally, several functions have a "preAllocated" version. Those that do are
 * **map** :: (fn: (a: MatrixElement) => number) => Matrix;
   * Maps over all the elements to return a new Matrix of the same dimensions
   * Expects a MatrixElements->number function to convert matrices
+* **transpose* :: transpose: () => Matrix;
+  * Flips the rows and columns
 * **clone** :: () => Matrix;
   * Clones the data and the shape
 
@@ -141,5 +143,6 @@ Additionally, several functions have a "preAllocated" version. Those that do are
   * the elements property itself is not frozen and may be changed directly
 
 ## Functions with "preAllocated" version
-* **composePreAllocated** :: (dest: any) => (other: any) => Matrix;
 * **mapPreAllocated** :: (dest: any) => (fn: (a: MatrixElement) => number) => Matrix;
+* **composePreAllocated** :: (dest: any) => (other: any) => Matrix;
+* **transposePreAllocated** :: (dest: any) => () => Matrix;
