@@ -16,8 +16,8 @@ Check out the different examples in the [unit tests](src/tests/unit)
 
 # Install
 
-1. via `npm install fl-matrix`
-2. via browser from https://unpkg.com/fl-matrix/dist/fl-matrix.browser-production.js (it is made available via FlMatrix globals in this case)
+* via `npm install fl-matrix`
+* via browser from https://unpkg.com/fl-matrix/dist/fl-matrix.browser-production.js (it is made available via FlMatrix globals in this case)
 
 # Development
 
