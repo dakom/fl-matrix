@@ -2,13 +2,13 @@
 
 # Fl-Matrix (Fantasy-Land Matrix)
 
-Provides a lightweight (5Kb) wrapper for functional programming with matrices.
+Provides a lightweight wrapper for functional programming with matrices and vectors
 
 Read the [Api Docs](docs/API.md) for more detail.
 
 # Status
 
-_Probably_ production-ready for everything ticked on the [Roadmap](#Roadmap), as they've been tested to some extant - but it hasn't been used in anything real yet (fiddle coming soon!)
+_Probably_ production-ready for everything ticked on the Roadmap, as they've been tested to some extant - but it hasn't been used in anything real yet (fiddle coming soon!)
 
 # Examples
 
