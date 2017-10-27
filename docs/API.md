@@ -128,3 +128,8 @@ For the sake of brevity they are listed here only in their method form:
 * **toString** :: () => string;
 * **log** :: () => void;
 * **elements[n]** :: the elements property itself is not frozen and may be changed directly
+* **composePreAllocated** :: (dest: Matrix) => (m2: Matrix) => (m1: Matrix) => Matrix;
+  * Like compose but writes to _dest_ which is must be pre-allocated to (m1.nCols x m2.nRows). 
+  * While this is still essentially a "functional" approach note that it is not pure and it does create side effects- _dest_ requires management.
+  * Useful for sequences of compositions where you'd partially apply this at a top-level to prevent garbage collection
+  * For example - `const compose4x4 = composePreAllocated (4) (4)` and then using `compose4x4` for all the 4x4 matrix compositions.

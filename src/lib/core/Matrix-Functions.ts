@@ -43,13 +43,13 @@ export const concat = (m1: Matrix) => (m2: Matrix): Matrix =>
     );
 
 //Compose - multiplies two matrices together (where the left consumes the right)
-export const compose = (m2: Matrix) => (m1: Matrix): Matrix => {
+//Writes the result into a pre-allocated buffer
+export const composePreAllocated = (dest:Matrix) => (m2: Matrix) => (m1: Matrix): Matrix => {
     if (m1.nRows !== m2.nCols) {
         console.error(`Composition not allowed with joining rows of (${m1.nRows} and columns of ${m2.nCols})`);
         return undefined;
     }
 
-    const dest = emptyMatrix (m1.nCols) (m2.nRows)
     const t = m1.nRows;
 
     for(let r = 0; r < m2.nRows; r++) {
@@ -64,6 +64,10 @@ export const compose = (m2: Matrix) => (m1: Matrix): Matrix => {
 
     return dest;
 }
+
+//Compose - multiplies two matrices together (where the left consumes the right)
+export const compose = (m2: Matrix) => (m1: Matrix): Matrix =>
+    composePreAllocated (emptyMatrix (m1.nCols) (m2.nRows)) (m2) (m1);
 
 //Clone the shape and the elements
 export const clone = (m1: Matrix): Matrix =>
