@@ -61,13 +61,11 @@ const seqId = seq.map(el => el.column === el.row ? 1 : 0);
 
 The library is written in Typescript and all the definitions are exported.
 
-## Creating a matrix
+## Vectors
 
-There are a few different ways to create a Matrix object:
+Vectors are nothing more than 1-column matrices, however they are very commonly used and it's helpful to have some easy abstractions like v.a, v.w, etc. so a helper class and some functions are provided to make this more convenient.
 
-1. Via functions: `emptyMatrix`, `matrixFromElements`, `identityMatrix`, and `matrixFromElementsDirect` (see below for more detail)
-2. Via class constructor: `new Matrix(nCols, nRows)` (same as emptyMatrix)
-3. Via class constructor with pre-allocated array: `new Matrix(nCols, nRows, elements)` (same as matrixFromElementsDirect)
+# API
 
 ## MatrixElement
 
@@ -81,20 +79,35 @@ MatrixElement {
 }
 ```
 
-## Available functions
+### Matrix
 
-All functions are unary and are therefore called like `foo (bar) (baz)`. For example, creating an empty Matrix of 4 columns by 3 rows is `emptyMatrix (4) (3)`
+The Matrix object contains the following properties:
 
-### Top-level
+* **elements[n]** :: Float64Array
+  * the elements property itself is not frozen and may be changed directly
+* nCols :: number (readonly)
+  * the number of columns in a matrix
+* nRows :: number (readonly)
+  * the number of rows in a matrix
+
+## Creating a Matrix
+
+There are a few different ways to create a Matrix object:
+
+* **Matrix constructor** :: (nCols: number, nRows: number, elements?: Float32Array)
+  * If `elements` is provided it is set directly (without copying). Note that this is an impure approach as changes to the underlying data of this matrix will affect the other copies.
 * **emptyMatrix** :: (nCols: number) => (nRows: number) => Matrix;
   * Create an empty matrix
 * **matrixFromElements** :: (nCols: number) => (nRows: number) => (elements: ArrayLike<number>) => Matrix;
   * Create a matrix from a copy of the data (which may be any ArrayLike<number>)
+* **matrixFromElementsDirect** :: (nCols: number) => (nRows: number) => (elements: Float32Array) => Matrix
+  * Same as providing `elements` to the constructor
 * **identityMatrix** : (nCols: number) => (nRows: number) => Matrix;
   * Create an identity matrix
-* **matrixFromElementsDirect** :: (nCols: number) => (nRows: number) => (elements: Float32Array) => Matrix
-  * Create a matrix from data without copying it. Note that this is an impure approach as changes to the underlying data of this matrix will affect the other copies
-  * Requires that the data be a Float32Array since it is assigned directly.
+* **zeroMatrix** :: (nCols: number) => (nRows: number) => Matrix;
+  * Creates a matrix filled with 0s
+
+## Functions
 
 The following functions are available as a generic function and, for convenience, as a method on a created Matrix object.
 
@@ -139,10 +152,39 @@ Additionally, several functions have a "preAllocated" version. Those that do are
 ### Side effects
 * **toString** :: () => string;
 * **log** :: () => void;
-* **elements[n]** :: Float64Array
-  * the elements property itself is not frozen and may be changed directly
+
 
 ## Functions with "preAllocated" version
 * **mapPreAllocated** :: (dest: any) => (fn: (a: MatrixElement) => number) => Matrix;
 * **composePreAllocated** :: (dest: any) => (other: any) => Matrix;
 * **transposePreAllocated** :: (dest: any) => () => Matrix;
+
+## Vector
+Vector extends Matrix and therefore contains all the above methods.
+
+To create a Vector, use one of these functions which are simply the counterpart to Matrix:
+
+* **Vector Constructor** :: (nRows: number, elements?: Float32Array)
+* **emptyVector** :: (nRows: number) => Vector;
+* **vectorFromElements** :: (elements: ArrayLike<number>) => Vector;
+* **zeroVector** :: (nRows: number) => Vector;
+* **vectorFromElementsDirect** :: (elements: Float32Array) => Vector;
+
+Vectors also have some property getters that operate as aliases:
+
+* **elements[0]**
+  * x
+  * width
+  * r
+* **elements[1]**
+  * y
+  * height
+  * g
+* **elements[2]**
+  * z
+  * depth
+  * b
+* **elements[3]**
+  * w
+  * hyperspace
+  * a

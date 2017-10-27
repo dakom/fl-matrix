@@ -62,6 +62,13 @@ export const matrixFromElementsDirect = (nCols:number) => (nRows:number) => (ele
 export const identityMatrix = (nCols:number) => (nRows:number):Matrix => 
     emptyMatrix(nCols) (nRows).map(element => element.column === element.row ? 1 : 0);
 
+//Creates a matrix filled with 0
+export const zeroMatrix = (nCols:number) => (nRows:number):Matrix => {
+    const m = emptyMatrix (nCols) (nRows);
+    m.elements.fill(0);
+    return m;
+}
+
 //Tostring
 export const mToString = (m1:Matrix):string => {
     let str = "";
