@@ -6,31 +6,34 @@ The primary goal of `fl-matrix` is to provide [Fantasy-land](https://github.com/
 
 For example:
 ```
+// Compose a generic scaling function
 const scaleBy = m => n => 
-  S.compose
-  (
-    m.map(el => el.column === el.row ? n : 0),
-    m
-  );
+S.compose
+(
+  m.map(el => el.column === el.row ? n : 0),
+  m,
+);
 
-const myIdentity = identityMatrix (3) (3)
+// Create a matrix of some predefined data
+const myData = matrixFromElements (3) (3) ([0,1,2, 3,4,5, 6,7,8])
 
-scaleBy (myIdentity) (4).log();
+// Scale it
+const scaledData = scaleBy (myData) (2);
 
-/*
-4 0 0
-0 4 0
-0 0 4
-*/
+// View Results: (via myData.log() and scaledData.log())
+// 0 3 6       00 06 12
+// 1 4 7  -->  02 08 14
+// 2 5 8       04 10 16
+
 ```
 
 A secondary goal is specifically to ease development for webgl. For this reason, the data layout is column-major. The `.elements` may be treated exactly as the matrices from other libraries if they are the same dimensions, and Float32Arrays may be loaded quickly into Matrix wrappers via `matrixFromElements() or matrixFromElementsDirect()`
 
 On that note - the map/reduce here are great for fun and powerful one-liners, but for faster common matrix operations, consider roundtripping data with [gl-matrix](http://glmatrix.net/) or [vec-la](https://github.com/francisrstokes/vec-la) or anything else you use to generate a column-major Float32Array. This library intentionally does not provide utilities for common transformations like rotation, scale, translate, etc.
 
-Every transformation returns a new copy of the class. The properties are marked read-only in Typescript though there is no deep-freezing. For the sake of efficiency, `matrixFromElementsDirect()` and `composePreAllocated()` may be used to reduce memory footprint at the expense of functional purity.
+In terms of immutability - every transformation returns a new copy of the class and the properties are marked read-only in Typescript. However, there is no deep-freezing and it's the responsibility of the caller to deal with `.elements` however they see fit. Additionally, for the sake of efficiency, several functions have a "preAllocated" version which allow compromising functional purity for the sake of lower memory footprint and saving gc cycles.
 
-The reason `map()` and `reduce()` are not fl-compatible is not due to that reason (e.g. they _are_ pure), but rather because they are given MatrixElements which have extra metadata like the column and row number. This is far more fun and useful than just the numbers alone in this case. For example:
+The reason `map()` and `reduce()` are not fl-compatible, however, is not due to that reason (e.g. they _are_ pure), but rather because they are given MatrixElements which have extra metadata like the column and row number. This is far more fun and useful than just the numbers alone in this case. For example:
 
 ```
 const allOnes = emptyMatrix (3) (3).map(() => 1);
@@ -60,9 +63,9 @@ The library is written in Typescript and all the definitions are exported.
 
 ## Creating a matrix
 
-1. Via functions: `emptyMatrix`, `matrixFromElements`, `identityMatrix`
+1. Via functions: `emptyMatrix`, `matrixFromElements`, `identityMatrix`, and `matrixFromElementsDirect` (see functions below for more detail)
 2. Via class constructor: `new Matrix(nCols, nRows)` (same as emptyMatrix)
-3. Via class constructor with pre-allocated array: `new Matrix(nCols, nRows, elements)` (same as matrixFromElementsImpure)
+3. Via class constructor with pre-allocated array: `new Matrix(nCols, nRows, elements)` (same as matrixFromElementsDirect)
 
 ## MatrixElement
 
@@ -83,16 +86,19 @@ All functions are unary and are therefore called like `foo (bar) (baz)`. For exa
 ### Top-level
 * **emptyMatrix** :: (nCols: number) => (nRows: number) => Matrix;
   * Create an empty matrix
-* **matrixFromElements** :: (nCols: number) => (nRows: number) => (elements: Float32Array) => Matrix;
-  * Create a matrix from data
+* **matrixFromElements** :: (nCols: number) => (nRows: number) => (elements: ArrayLike<number>) => Matrix;
+  * Create a matrix from a copy of the data (and the data may be any ArrayLike<number>)
 * **identityMatrix** : (nCols: number) => (nRows: number) => Matrix;
   * Create an identity matrix
 * **matrixFromElementsDirect** :: (nCols: number) => (nRows: number) => (elements: Float32Array) => Matrix
   * Create a matrix from data without copying it. Note that this is an impure approach as changes to the underlying data of this matrix will affect the other copies
+  * Requires that the data be a Float32Array since it is assigned directly.
 
 The following functions are available as a generic function and, for convenience, as a method on a created Matrix object.
 
-For the sake of brevity they are listed here only in their method form:
+For the sake of brevity they are listed here only in their method form.
+
+Additionally, several functions have a "preAllocated" version. Those that do are listed at the end and are identical to their pure counterpart, only that they take a pre-allocated matrix in as the first parameter. Typically this would be used for partial application and re-use (otherwise it's no different than using the pure version).
 
 ### Fantasy-land compatible transformations
 * **compose** :: (other: any) => Matrix;
@@ -129,9 +135,9 @@ For the sake of brevity they are listed here only in their method form:
 ### Side effects
 * **toString** :: () => string;
 * **log** :: () => void;
-* **elements[n]** :: the elements property itself is not frozen and may be changed directly
-* **composePreAllocated** :: (dest: Matrix) => (m2: Matrix) => (m1: Matrix) => Matrix;
-  * Like compose but writes to _dest_ which is must be pre-allocated to (m1.nCols x m2.nRows). 
-  * While this is still essentially a "functional" approach note that it is not pure and it does create side effects- _dest_ requires management.
-  * Useful for sequences of compositions where you'd partially apply this at a top-level to prevent garbage collection
-  * For example - `const compose4x4 = composePreAllocated (4) (4)` and then using `compose4x4` for all the 4x4 matrix compositions.
+* **elements[n]** :: Float64Array
+  * the elements property itself is not frozen and may be changed directly
+
+## Functions with "preAllocated" version
+* **composePreAllocated** :: (dest: any) => (other: any) => Matrix;
+* **mapPreAllocated** :: (dest: any) => (fn: (a: MatrixElement) => number) => Matrix;

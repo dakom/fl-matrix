@@ -15,19 +15,33 @@ export const randomMatrix = (nCols:number) => (nRows:number) => {
     return matrixFromElements (nCols) (nRows) (elements);
 }
 
-const r1 = randomMatrix (4) (4);
-const r2 = randomMatrix (4) (4);
+//compose a generic scaling function
+/*
+const scaleBy = m => n => 
+S.compose
+(
+  m.map(el => el.column === el.row ? n : 0),
+  m,
+);
 
+*/
 
-const mRes = mat4.multiply(mat4.create(), r2.elements, r1.elements);
-const res = r1.compose(r2);
+const foo = emptyMatrix (3) (3);
 
-console.log(mRes);
-console.log(res.elements);
+const scaleBy = (m:Matrix) => n => {
+    
+    const nMap = m.map(el => el.column === el.row ? n : 0);
 
-//const res = r1.compose(r2); //
+    const myCompose = m.composePreAllocated (foo);
 
-//const res = S.compose(r1) (r2);
+    return myCompose(nMap);
+}
+  
+  
+//create a matrix of some predefined data
+const myData = matrixFromElements (3) (3) ([0,1,2, 3,4,5, 6,7,8])
 
-//res.log();
+//scale it
+const scaledData = scaleBy (myData) (2);
 
+scaledData.log();

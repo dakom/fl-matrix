@@ -13,13 +13,16 @@ export const reduce = (m1: Matrix) => (fn: ((m: Matrix) => (a: MatrixElement) =>
 }
 
 //map
-export const map = (m1: Matrix) => (fn: ((a: MatrixElement) => number)): Matrix =>
+export const mapPreAllocated = (dest:Matrix) => (m1: Matrix) => (fn: ((a: MatrixElement) => number)): Matrix => 
     m1.reduce
         (dest => el => {
             dest.elements[el.index] = fn(el);
             return dest;
         })
-        (emptyMatrix(m1.nCols)(m1.nRows));
+    (dest);
+
+export const map = (m1: Matrix) => (fn: ((a: MatrixElement) => number)): Matrix =>
+    mapPreAllocated (emptyMatrix(m1.nCols)(m1.nRows)) (m1) (fn);
 
 //equals
 export const equals = (m1: Matrix) => (m2: Matrix): boolean => {
@@ -43,7 +46,6 @@ export const concat = (m1: Matrix) => (m2: Matrix): Matrix =>
     );
 
 //Compose - multiplies two matrices together (where the left consumes the right)
-//Writes the result into a pre-allocated buffer
 export const composePreAllocated = (dest:Matrix) => (m2: Matrix) => (m1: Matrix): Matrix => {
     if (m1.nRows !== m2.nCols) {
         console.error(`Composition not allowed with joining rows of (${m1.nRows} and columns of ${m2.nCols})`);
@@ -65,7 +67,6 @@ export const composePreAllocated = (dest:Matrix) => (m2: Matrix) => (m1: Matrix)
     return dest;
 }
 
-//Compose - multiplies two matrices together (where the left consumes the right)
 export const compose = (m2: Matrix) => (m1: Matrix): Matrix =>
     composePreAllocated (emptyMatrix (m1.nCols) (m2.nRows)) (m2) (m1);
 

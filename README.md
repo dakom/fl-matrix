@@ -39,7 +39,7 @@ The dev setup is configured to enable both unit testing and iterative browser-ba
 ## Functional utils (not fp-compatible - see API docs)
 - [x] Map
 - [x] Reduce
-
+- [ ] Transpose
 
 ## Fantasy-Land compatibility
 

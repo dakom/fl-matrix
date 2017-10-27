@@ -1,4 +1,4 @@
-import {map, concat, clone, reduce, compose, id, equals} from "./Matrix-Functions";
+import {map, concat, clone, reduce, compose, id, equals, composePreAllocated, mapPreAllocated} from "./Matrix-Functions";
 import {MatrixElement, getElementAtPosition, getValueAtIndex, getValueAtPosition, setElementAtPosition, getIndexAtPosition} from "./Matrix-Elements";
 
 /* Creator functions and helpers */
@@ -19,6 +19,7 @@ export class Matrix {
 
     public reduce = reduce(this);
     public map = map(this);
+    public mapPreAllocated = dest => mapPreAllocated (dest) (this);
     public clone = () => clone(this);
     public getIndexAtPosition = getIndexAtPosition(this);
     public getElementAtPosition = getElementAtPosition(this);
@@ -27,6 +28,7 @@ export class Matrix {
     public setElementAtPosition = setElementAtPosition(this);
     public concat = concat(this);
     public compose = other => compose (other) (this);
+    public composePreAllocated = dest => other => composePreAllocated (dest) (other) (this);
     public toString = () => mToString(this);
     public log = () => console.log(this.toString());
     public id = () => id(this);
@@ -44,7 +46,7 @@ export const emptyMatrix = (nCols:number) => (nRows:number):Matrix =>
     new Matrix(nCols, nRows);
 
 //Creates a matrix from predefined data
-export const matrixFromElements = (nCols:number) => (nRows:number) => (elements:Float32Array):Matrix => {
+export const matrixFromElements = (nCols:number) => (nRows:number) => (elements:ArrayLike<number>):Matrix => {
     const m = emptyMatrix(nCols) (nRows);
     m.elements.set(elements);
     return m;
