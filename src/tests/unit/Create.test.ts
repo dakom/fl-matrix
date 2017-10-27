@@ -1,6 +1,6 @@
 
 import { expect } from 'chai';
-import {Matrix, identityMatrix, matrixFromElements} from "../../lib/LibMain";
+import {Matrix, identityMatrix, matrixFromElements, matrixFromElementsDirect} from "../../lib/LibMain";
 import {matrixEquals} from "./TestLibs";
 
 export class CreateMatrix {
@@ -36,6 +36,20 @@ export class CreateMatrix {
                 (matrixFromElements (3) (3) (vals))
                 (vals)
         ).to.be.true;
+
+        done();
+    }
+
+    'From Elements Direct'(done) {
+        const vals = Float32Array.from([ 1, 3, 4, 2, 5, 6, 7, 6, 9 ]);
+
+        const m1 = matrixFromElementsDirect (3) (3) (vals);
+
+        expect(vals === m1.elements).to.be.true;
+
+        //make sure it's not accidental
+        const m2 = matrixFromElements(3) (3) (vals);
+        expect(vals === m2.elements).to.be.false;
 
         done();
     }

@@ -24,13 +24,13 @@ scaleBy (myIdentity) (4).log();
 */
 ```
 
-A secondary goal is specifically to ease development for webgl. For this reason, the data layout is column-major. The `.elements` may be treated exactly as the matrices from other libraries if they are the same dimensions, and Float32Arrays may be loaded quickly into Matrix wrappers via `matrixFromElements()`
+A secondary goal is specifically to ease development for webgl. For this reason, the data layout is column-major. The `.elements` may be treated exactly as the matrices from other libraries if they are the same dimensions, and Float32Arrays may be loaded quickly into Matrix wrappers via `matrixFromElements() or matrixFromElementsDirect()`
 
-On that note - the map/reduce here are great for fun and powerful one-liners, but for faster common matrix operations, consider roundtripping data with [gl-matrix](http://glmatrix.net/) or [vec-la](https://github.com/francisrstokes/vec-la) or anything else you can feed into `matrixFromElements()`. This library intentionally does not provide utilities for common transformations like rotation, scale, translate, etc.
+On that note - the map/reduce here are great for fun and powerful one-liners, but for faster common matrix operations, consider roundtripping data with [gl-matrix](http://glmatrix.net/) or [vec-la](https://github.com/francisrstokes/vec-la) or anything else you use to generate a column-major Float32Array. This library intentionally does not provide utilities for common transformations like rotation, scale, translate, etc.
 
-Every transformation returns a new copy of the class. The properties are marked read-only in Typescript though there is no deep-freezing.
+Every transformation returns a new copy of the class. The properties are marked read-only in Typescript though there is no deep-freezing. For the sake of efficiency, `matrixFromElementsDirect()` and `composePreAllocated()` may be used to reduce memory footprint at the expense of functional purity.
 
-The reason `map()` and `reduce()` are not fl-compatible is because they are given MatrixElements which have extra metadata like the column and row number. This is far more fun and useful than just the numbers alone in this case. For example:
+The reason `map()` and `reduce()` are not fl-compatible is not due to that reason (e.g. they _are_ pure), but rather because they are given MatrixElements which have extra metadata like the column and row number. This is far more fun and useful than just the numbers alone in this case. For example:
 
 ```
 const allOnes = emptyMatrix (3) (3).map(() => 1);
@@ -62,6 +62,7 @@ The library is written in Typescript and all the definitions are exported.
 
 1. Via functions: `emptyMatrix`, `matrixFromElements`, `identityMatrix`
 2. Via class constructor: `new Matrix(nCols, nRows)` (same as emptyMatrix)
+3. Via class constructor with pre-allocated array: `new Matrix(nCols, nRows, elements)` (same as matrixFromElementsImpure)
 
 ## MatrixElement
 
@@ -86,7 +87,8 @@ All functions are unary and are therefore called like `foo (bar) (baz)`. For exa
   * Create a matrix from data
 * **identityMatrix** : (nCols: number) => (nRows: number) => Matrix;
   * Create an identity matrix
-
+* **matrixFromElementsDirect** :: (nCols: number) => (nRows: number) => (elements: Float32Array) => Matrix
+  * Create a matrix from data without copying it. Note that this is an impure approach as changes to the underlying data of this matrix will affect the other copies
 
 The following functions are available as a generic function and, for convenience, as a method on a created Matrix object.
 

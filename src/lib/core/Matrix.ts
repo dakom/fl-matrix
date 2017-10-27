@@ -8,8 +8,11 @@ export class Matrix {
     public readonly nCols:number;
     public readonly nRows:number;
 
-    constructor(nCols:number, nRows:number) {
-        this.elements = new Float32Array(nCols * nRows);
+    constructor(nCols:number, nRows:number, elements?:Float32Array) {
+        if(elements !== undefined && elements.length !== nCols * nRows) {
+            throw new Error("If you supply elements, it must be (cols * rows) length in size")
+        }
+        this.elements = elements === undefined ? new Float32Array(nCols * nRows) : elements;
         this.nCols = nCols;
         this.nRows = nRows;
     }
@@ -46,6 +49,10 @@ export const matrixFromElements = (nCols:number) => (nRows:number) => (elements:
     m.elements.set(elements);
     return m;
 }
+
+//Creates a matrix from predefined data without copying
+export const matrixFromElementsDirect = (nCols:number) => (nRows:number) => (elements:Float32Array):Matrix =>
+    new Matrix(nCols, nRows, elements);
 
 //Creates an identity matrix
 export const identityMatrix = (nCols:number) => (nRows:number):Matrix => 
