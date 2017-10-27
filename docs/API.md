@@ -63,7 +63,9 @@ The library is written in Typescript and all the definitions are exported.
 
 ## Creating a matrix
 
-1. Via functions: `emptyMatrix`, `matrixFromElements`, `identityMatrix`, and `matrixFromElementsDirect` (see functions below for more detail)
+There are a few different ways to create a Matrix object:
+
+1. Via functions: `emptyMatrix`, `matrixFromElements`, `identityMatrix`, and `matrixFromElementsDirect` (see below for more detail)
 2. Via class constructor: `new Matrix(nCols, nRows)` (same as emptyMatrix)
 3. Via class constructor with pre-allocated array: `new Matrix(nCols, nRows, elements)` (same as matrixFromElementsDirect)
 
