@@ -133,7 +133,7 @@ Additionally, several functions have a "preAllocated" version. Those that do are
 * **map** / **mapPreAllocated** :: (fn: (a: MatrixElement) => number) => Matrix;
   * Maps over all the elements to return a new Matrix of the same dimensions
   * Expects a MatrixElements->number function to convert matrices
-* **transpose* / **transposePreAllocated** :: transpose: () => Matrix;
+* **transpose** / **transposePreAllocated** :: transpose: () => Matrix;
   * Flips the rows and columns
 * **clone** :: () => Matrix;
   * Clones the data and the shape
@@ -153,12 +153,6 @@ Additionally, several functions have a "preAllocated" version. Those that do are
 ### Side effects
 * **toString** :: () => string;
 * **log** :: () => void;
-
-
-### Functions with "preAllocated" version
-
-*  :: (dest: any) => (other: any) => Matrix;
-*  :: (dest: any) => () => Matrix;
 
 ----
 
