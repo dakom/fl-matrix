@@ -155,10 +155,12 @@ Additionally, several functions have a "preAllocated" version. Those that do are
 * **log** :: () => void;
 
 
-## Functions with "preAllocated" version
+### Functions with "preAllocated" version
 * **mapPreAllocated** :: (dest: any) => (fn: (a: MatrixElement) => number) => Matrix;
 * **composePreAllocated** :: (dest: any) => (other: any) => Matrix;
 * **transposePreAllocated** :: (dest: any) => () => Matrix;
+
+----
 
 ## Vector
 Vector extends Matrix and therefore contains all the above methods.
