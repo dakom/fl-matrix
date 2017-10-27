@@ -70,6 +70,24 @@ export const composePreAllocated = (dest:Matrix) => (m2: Matrix) => (m1: Matrix)
 export const compose = (m2: Matrix) => (m1: Matrix): Matrix =>
     composePreAllocated (emptyMatrix (m1.nCols) (m2.nRows)) (m2) (m1);
 
+//transpose (flip columns/rows)
+export const transposePreAllocated = (dest:Matrix) => (m1:Matrix):Matrix => {
+    if(dest.nCols !== m1.nRows || dest.nRows !== m1.nCols) {
+        console.error(`Transposing requires that the number of destination columns and rows be the inverse of source columns and rows`);
+        return undefined;
+    }
+
+    return m1.reduce
+        (dest => el => {
+            dest.setElementAtPosition (el.row) (el.column) (el.value)
+            return dest;
+        })
+        (dest);
+}
+
+export const transpose = (m1:Matrix):Matrix =>
+    transposePreAllocated (emptyMatrix (m1.nRows) (m1.nCols)) (m1);
+
 //Clone the shape and the elements
 export const clone = (m1: Matrix): Matrix =>
     matrixFromElements(m1.nCols)(m1.nRows)(m1.elements);

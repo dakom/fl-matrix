@@ -1,4 +1,4 @@
-import {map, concat, clone, reduce, compose, id, equals, composePreAllocated, mapPreAllocated} from "./Matrix-Functions";
+import {map, concat, clone, reduce, compose, id, equals, composePreAllocated, mapPreAllocated, transpose, transposePreAllocated} from "./Matrix-Functions";
 import {MatrixElement, getElementAtPosition, getValueAtIndex, getValueAtPosition, setElementAtPosition, getIndexAtPosition} from "./Matrix-Elements";
 
 /* Creator functions and helpers */
@@ -33,6 +33,8 @@ export class Matrix {
     public log = () => console.log(this.toString());
     public id = () => id(this);
     public equals = equals(this);
+    public transpose = () => transpose(this);
+    public transposePreAllocated = dest => () => transpose(this);
     
     public 'fantasy-land/concat' = concat(this);
     public 'fantasy-land/id' = () => id(this);

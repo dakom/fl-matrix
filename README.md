@@ -47,7 +47,6 @@ The dev setup is configured to enable both unit testing and iterative browser-ba
 - [x] Category (identity)
 - [x] Setoid (equal)
 - [x] Semigroupoid / compose (multiply)
-- [ ] Group (invert)
 
 ## Sanctuary definitions
 
