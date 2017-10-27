@@ -1,4 +1,4 @@
-import { transposePreAllocated } from '../lib/core/Matrix-Functions';
+import { transposePreAllocated } from '../lib/matrix/Matrix-Functions';
 import {zeroVector, matrixFromElements, vectorFromElements} from "../lib/LibMain";
 
 import {create, env} from 'sanctuary';

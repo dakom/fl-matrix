@@ -1,4 +1,4 @@
-import {Matrix} from "../core/Matrix";
+import {Matrix} from "../matrix/Matrix";
 
 export class Vector extends Matrix {
     constructor(nRows:number, elements?:Float32Array) {

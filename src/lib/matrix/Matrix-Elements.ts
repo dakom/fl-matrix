@@ -27,11 +27,16 @@ export const getValueAtIndex = (m1:Matrix) => (index:number):number =>
 export const getValueAtPosition = (m1:Matrix) => (c:number) => (r:number):number =>
     m1.elements[m1.getIndexAtPosition (c) (r)];
 
-//Set a single element
-export const setElementAtPosition = (m1:Matrix) => (c:number) => (r:number) => (val:number):Matrix => {
+//Set a single value
+export const setValueAtPosition = (m1:Matrix) => (c:number) => (r:number) => (val:number):Matrix => {
     const m = m1.clone();
-    m1.elements[m1.getIndexAtPosition (c) (r)] = val;
+    m.elements[m1.getIndexAtPosition (c) (r)] = val;
     return m;
+}
+
+export const setValueAtPositionDirect = (m1:Matrix) => (c:number) => (r:number) => (val:number):Matrix => {
+    m1.elements[m1.getIndexAtPosition (c) (r)] = val;
+    return m1;
 }
 
 //Get the index at a position

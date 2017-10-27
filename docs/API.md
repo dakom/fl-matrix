@@ -114,10 +114,10 @@ The following functions are available as a generic function and, for convenience
 
 For the sake of brevity they are listed here only in their method form.
 
-Additionally, several functions have a "preAllocated" version. Those that do are listed at the end and are identical to their pure counterpart, only that they take a pre-allocated matrix in as the first parameter. Typically this would be used for partial application and re-use (otherwise it's no different than using the pure version).
+Additionally, several functions have a "preAllocated" version. Those that do are identical to their pure counterpart, only that they take a pre-allocated matrix in as the first parameter (hidden in the signatures here). Typically this would be used for partial application and re-use (otherwise it's no different than using the pure version). Similarly, functions that modify elements may have a "direct" version which modifies the `.elements` directly rather than making a copy
 
 ### Fantasy-land compatible transformations
-* **compose** :: (other: any) => Matrix;
+* **compose** / **composePreAllocated** :: (other: any) => Matrix;
   * Multiplies this matrix by the other
 * **concat** :: (m2: Matrix) => Matrix;
   * Adds the other to this matrix
@@ -130,10 +130,10 @@ Additionally, several functions have a "preAllocated" version. Those that do are
 * **reduce** :: (fn: (m: Matrix) => (a: MatrixElement) => Matrix) => (dest: Matrix) => Matrix;
   * Maps over all the elements to return a new Matrix of any kind
   * Expects a MatrixElements->Matrix function to convert matrices
-* **map** :: (fn: (a: MatrixElement) => number) => Matrix;
+* **map** / **mapPreAllocated** :: (fn: (a: MatrixElement) => number) => Matrix;
   * Maps over all the elements to return a new Matrix of the same dimensions
   * Expects a MatrixElements->number function to convert matrices
-* **transpose* :: transpose: () => Matrix;
+* **transpose* / **transposePreAllocated** :: transpose: () => Matrix;
   * Flips the rows and columns
 * **clone** :: () => Matrix;
   * Clones the data and the shape
@@ -147,7 +147,7 @@ Additionally, several functions have a "preAllocated" version. Those that do are
   * Returns a value at a given index in the `elements`
 * **getValueAtPosition** :: (c: number) => (r: number) => number;
   * Returns a value at a given column/row position
-* **setElementAtPosition** :: (c: number) => (r: number) => (val: number) => Matrix;
+* **setValueAtPosition** / **setValueAtPositionDirect** :: (c: number) => (r: number) => (val: number) => Matrix;
   * Sets the value of the element at a given column/row position
 
 ### Side effects
@@ -156,9 +156,9 @@ Additionally, several functions have a "preAllocated" version. Those that do are
 
 
 ### Functions with "preAllocated" version
-* **mapPreAllocated** :: (dest: any) => (fn: (a: MatrixElement) => number) => Matrix;
-* **composePreAllocated** :: (dest: any) => (other: any) => Matrix;
-* **transposePreAllocated** :: (dest: any) => () => Matrix;
+
+*  :: (dest: any) => (other: any) => Matrix;
+*  :: (dest: any) => () => Matrix;
 
 ----
 

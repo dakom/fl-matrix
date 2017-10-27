@@ -1,4 +1,4 @@
-export * from "./core/Matrix";
-export * from "./core/Matrix-Functions";
-export * from "./core/Matrix-Elements";
+export * from "./matrix/Matrix";
+export * from "./matrix/Matrix-Functions";
+export * from "./matrix/Matrix-Elements";
 export * from "./vector/Vector";

@@ -1,5 +1,5 @@
 import {map, concat, clone, reduce, compose, id, equals, composePreAllocated, mapPreAllocated, transpose, transposePreAllocated} from "./Matrix-Functions";
-import {MatrixElement, getElementAtPosition, getValueAtIndex, getValueAtPosition, setElementAtPosition, getIndexAtPosition} from "./Matrix-Elements";
+import {MatrixElement, getElementAtPosition, getValueAtIndex, getValueAtPosition, setValueAtPosition, setValueAtPositionDirect, getIndexAtPosition} from "./Matrix-Elements";
 
 /* Creator functions and helpers */
 
@@ -25,7 +25,8 @@ export class Matrix {
     public getElementAtPosition = getElementAtPosition(this);
     public getValueAtIndex = getValueAtIndex(this);
     public getValueAtPosition = getValueAtPosition(this);
-    public setElementAtPosition = setElementAtPosition(this);
+    public setValueAtPosition = setValueAtPosition(this);
+    public setValueAtPositionDirect = setValueAtPositionDirect(this);
     public concat = concat(this);
     public compose = other => compose (other) (this);
     public composePreAllocated = dest => other => composePreAllocated (dest) (other) (this);

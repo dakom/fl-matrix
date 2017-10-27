@@ -79,7 +79,7 @@ export const transposePreAllocated = (dest:Matrix) => (m1:Matrix):Matrix => {
 
     return m1.reduce
         (dest => el => {
-            dest.setElementAtPosition (el.row) (el.column) (el.value)
+            dest.setValueAtPositionDirect (el.row) (el.column) (el.value)
             return dest;
         })
         (dest);
