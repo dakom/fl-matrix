@@ -78,4 +78,26 @@ export class Compose {
 
         done();
     }
+
+    '3 Deep'(done) {
+        const r1 = randomMatrix (4) (4);
+        const r2 = randomMatrix (4) (4);
+        const r3 = randomMatrix (4) (4);
+
+        //Check the multiplication with gl-matrix
+
+        //Regular
+        const res1 = mat4.multiply(mat4.create(), mat4.multiply(mat4.create(), r1.elements, r2.elements), r3)
+        
+
+        expect(
+            arrayEquals 
+                (res1)
+                (r3.compose(r2.compose(r1)).elements)
+        ).to.be.true;
+
+       
+
+        done();
+    }
 }

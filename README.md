@@ -8,7 +8,7 @@ Read the [Api Docs](docs/API.md) for more detail.
 
 # Status
 
-_Probably_ production-ready for everything ticked on the Roadmap, as they've been tested to some extant - but it hasn't been used in anything real yet (fiddle coming soon!)
+_Not production ready_ ... almost, but not quite ;)
 
 # Examples
 
@@ -36,7 +36,8 @@ The dev setup is configured to enable both unit testing and iterative browser-ba
 - [x] Concat (add)
 - [x] Category (identity)
 - [x] Setoid (equal)
-- [x] Semigroupoid / compose (multiply)
+- [/] Semigroupoid / compose (multiply)
+    [ ] Fix tests for 3-deep
 - [x] Monoid (empty)
 
 ## Functional utils (not fp-compatible - see API docs)
