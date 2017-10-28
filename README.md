@@ -37,7 +37,7 @@ The dev setup is configured to enable both unit testing and iterative browser-ba
 - [x] Category (identity)
 - [x] Setoid (equal)
 - [/] Semigroupoid / compose (multiply)
-    [ ] Fix tests for 3-deep
+  - [ ] Fix tests for 3-deep
 - [x] Monoid (empty)
 
 ## Functional utils (not fp-compatible - see API docs)
