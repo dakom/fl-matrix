@@ -12,7 +12,8 @@ _Probably_ production-ready for everything ticked on the Roadmap, as they've bee
 
 # Examples
 
-Check out the different examples in the [unit tests](src/tests/unit)
+1. Lots of different examples in the [unit tests](src/tests/unit)
+2. A basic [2d demo fiddle](http://jsfiddle.net/dakom/hvvforby/) showing it in action with WebGL and Sanctuary.
 
 # Install
 
@@ -42,16 +43,20 @@ The dev setup is configured to enable both unit testing and iterative browser-ba
 - [x] MapElements
 - [x] ReduceElements
 - [x] Transpose
+- [x] Clone
 
 ## Core lib
 - [x] Overall structure
 - [x] Create empty matrix
 - [x] Create matrix from values
+- [x] Additional creation helpers
 - [x] Helper functions for getting/setting elements
+- [x] Vector abstraction
 
 ## Sanctuary definitions
 
 - [ ] Matrix
+- [ ] Vector?
 
 ## Project setup
 
@@ -60,6 +65,11 @@ The dev setup is configured to enable both unit testing and iterative browser-ba
 - [x] Target external import
 - [x] Bundle Typescript definitions
 - [x] Write API docs
-- [ ] Show webgl demo via fiddle
+- [x] Show webgl demo via basic 2d fiddle
 - [ ] Rewrite API docs to use type signatures rather than TS declarations
 - [ ] Official fantasy-land laws tests
+- [ ] Advanced fiddle to use more levels of compose (maybe camera / 3d)
+
+## Extras
+
+- [ ] Invert matrix capability (not sure if this is feasible/worthwhile with arbitrary sizes)
