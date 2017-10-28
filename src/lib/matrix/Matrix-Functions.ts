@@ -2,7 +2,7 @@ import { Matrix, emptyMatrix, identityMatrix, matrixFromElements } from "./Matri
 import { MatrixElement } from "./Matrix-Elements";
 
 //reduce
-export const reduce = (m1: Matrix) => (fn: ((m: Matrix) => (a: MatrixElement) => Matrix)) => (dest: Matrix): Matrix => {
+export const reduceElements = (m1: Matrix) => (fn: ((m: Matrix) => (a: MatrixElement) => Matrix)) => (dest: Matrix): Matrix => {
     for (let r = 0; r < m1.nRows; r++) {
         for (let c = 0; c < m1.nCols; c++) {
             dest = fn(dest)(m1.getElementAtPosition(c)(r))
@@ -12,16 +12,44 @@ export const reduce = (m1: Matrix) => (fn: ((m: Matrix) => (a: MatrixElement) =>
     return dest;
 }
 
+export const reduce = (m1: Matrix) => (fn: ((m: Matrix) => (es:Float32Array) => Matrix)) => (dest: Matrix): Matrix =>
+    fn(dest)(m1.elements.slice())
+
+export const reduceDirect = (m1: Matrix) => (fn: ((m: Matrix) => (es:Float32Array) => Matrix)) => (dest: Matrix): Matrix =>
+    fn(dest)(m1.elements)
+
 //map
-export const mapPreAllocated = (dest:Matrix) => (m1: Matrix) => (fn: ((a: MatrixElement) => number)): Matrix => 
-    m1.reduce
+export const mapElements = (m1: Matrix) => (fn: ((a: MatrixElement) => number)): Matrix =>
+    mapElementsPreAllocated (emptyMatrix(m1.nCols)(m1.nRows)) (m1) (fn);
+
+export const mapElementsDirect = (m1: Matrix) => (fn: ((a: MatrixElement) => number)): Matrix => 
+    m1.reduceElements
+        (dest => el => {
+            dest.elements[el.index] = fn(el);
+            return dest;
+        })
+    (m1);
+
+export const mapElementsPreAllocated = (dest:Matrix) => (m1: Matrix) => (fn: ((a: MatrixElement) => number)): Matrix => 
+    m1.reduceElements
         (dest => el => {
             dest.elements[el.index] = fn(el);
             return dest;
         })
     (dest);
 
-export const map = (m1: Matrix) => (fn: ((a: MatrixElement) => number)): Matrix =>
+export const mapPreAllocated = (dest:Matrix) => (m1:Matrix) => (fn: ((es: Float32Array) => Float32Array)): Matrix =>
+    m1.reduceDirect
+    (dest => es => {
+        dest.elements.set(fn(es));
+        return dest;
+    })
+    (dest);
+
+export const mapDirect = (m1:Matrix) => (fn: ((es: Float32Array) => Float32Array)): Matrix =>
+    mapPreAllocated (m1) (m1) (fn);
+
+export const map = (m1:Matrix) => (fn: ((es: Float32Array) => Float32Array)): Matrix =>
     mapPreAllocated (emptyMatrix(m1.nCols)(m1.nRows)) (m1) (fn);
 
 //equals
@@ -41,8 +69,13 @@ export const equals = (m1: Matrix) => (m2: Matrix): boolean => {
 
 //Concat - adds two matrices together
 export const concat = (m1: Matrix) => (m2: Matrix): Matrix =>
-    m1.map(el =>
-        el.value + m2.getValueAtIndex(el.index)
+    m1.map(es =>
+        es.map((val, index) => val + m2.getValueAtIndex(index))
+    );
+
+export const concatPreAllocated = (dest:Matrix) => (m1: Matrix) => (m2: Matrix): Matrix =>
+    dest.mapDirect(es =>
+        es.map((nullVal, index) => m1.getValueAtIndex(index) + m2.getValueAtIndex(index))
     );
 
 //Compose - multiplies two matrices together (where the left consumes the right)
@@ -77,7 +110,7 @@ export const transposePreAllocated = (dest:Matrix) => (m1:Matrix):Matrix => {
         return undefined;
     }
 
-    return m1.reduce
+    return m1.reduceElements
         (dest => el => {
             dest.setValueAtPositionDirect (el.row) (el.column) (el.value)
             return dest;

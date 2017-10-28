@@ -1,4 +1,25 @@
-import {map, concat, clone, reduce, compose, id, equals, composePreAllocated, mapPreAllocated, transpose, transposePreAllocated} from "./Matrix-Functions";
+import {
+    map,
+    mapDirect,
+    mapPreAllocated,
+    mapElements, 
+    mapElementsPreAllocated,
+    mapElementsDirect,
+    reduce,
+    reduceDirect,
+    reduceElements,
+    concat,
+    concatPreAllocated,
+    clone, 
+    compose, 
+    id, 
+    equals, 
+    composePreAllocated, 
+    
+    transpose, 
+    transposePreAllocated
+} from "./Matrix-Functions";
+
 import {MatrixElement, getElementAtPosition, getValueAtIndex, getValueAtPosition, setValueAtPosition, setValueAtPositionDirect, getIndexAtPosition} from "./Matrix-Elements";
 
 /* Creator functions and helpers */
@@ -17,9 +38,17 @@ export class Matrix {
         this.nRows = nRows;
     }
 
-    public reduce = reduce(this);
     public map = map(this);
-    public mapPreAllocated = dest => mapPreAllocated (dest) (this);
+    public mapPreAllocated = dest => mapPreAllocated(dest) (this);
+    public mapDirect = mapDirect(this);
+    public mapElements = mapElements(this);
+    public mapElementsDirect = mapElementsDirect(this);
+    public mapElementsPreAllocated = dest => mapElementsPreAllocated (dest) (this);
+
+    public reduce = reduce(this);
+    public reduceDirect = reduceDirect(this);
+    public reduceElements = reduceElements(this);
+    
     public clone = () => clone(this);
     public getIndexAtPosition = getIndexAtPosition(this);
     public getElementAtPosition = getElementAtPosition(this);
@@ -28,6 +57,7 @@ export class Matrix {
     public setValueAtPosition = setValueAtPosition(this);
     public setValueAtPositionDirect = setValueAtPositionDirect(this);
     public concat = concat(this);
+    public concatPreAllocated = dest => concatPreAllocated(dest) (this);
     public compose = other => compose (other) (this);
     public composePreAllocated = dest => other => composePreAllocated (dest) (other) (this);
     public toString = () => mToString(this);
@@ -36,12 +66,16 @@ export class Matrix {
     public equals = equals(this);
     public transpose = () => transpose(this);
     public transposePreAllocated = dest => () => transpose(this);
-    
+    public empty = () => zeroMatrix(this.nCols) (this.nRows);
+
+    public 'fantasy-land/map' = map(this);
+    public 'fantasy-land/reduce' = (f, x) => f(x, this.elements.slice()); //the fantasy-land spec doesn't seem to allow unary calls here
+    //(f, x) => reduce (this) (f) (x);
     public 'fantasy-land/concat' = concat(this);
     public 'fantasy-land/id' = () => id(this);
     public 'fantasy-land/equals' = equals(this);
     public 'fantasy-land/compose' = compose(this); //S.compose flips it around for us.
-    
+    public 'fantasy-land/empty' = () => zeroMatrix(this.nCols) (this.nRows);
 }
 
 //Creates an empty matrix with no data populated
@@ -61,7 +95,7 @@ export const matrixFromElementsDirect = (nCols:number) => (nRows:number) => (ele
 
 //Creates an identity matrix
 export const identityMatrix = (nCols:number) => (nRows:number):Matrix => 
-    emptyMatrix(nCols) (nRows).map(element => element.column === element.row ? 1 : 0);
+    emptyMatrix(nCols) (nRows).mapElementsDirect(element => element.column === element.row ? 1 : 0);
 
 //Creates a matrix filled with 0
 export const zeroMatrix = (nCols:number) => (nRows:number):Matrix => {

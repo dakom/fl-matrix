@@ -29,24 +29,25 @@ The dev setup is configured to enable both unit testing and iterative browser-ba
 
 # Roadmap
 
-## Core lib
-
-- [x] Overall structure
-- [x] Create empty matrix
-- [x] Create matrix from values
-- [x] Helper functions for getting/setting elements
-
-## Functional utils (not fp-compatible - see API docs)
-- [x] Map
-- [x] Reduce
-- [x] Transpose
-
-## Fantasy-Land compatibility
-
+## Fantasy-Land compatibility (not officially tested yet)
+- [x] Functor (map)
+- [x] Foldable (reduce)
 - [x] Concat (add)
 - [x] Category (identity)
 - [x] Setoid (equal)
 - [x] Semigroupoid / compose (multiply)
+- [x] Monoid (empty)
+
+## Functional utils (not fp-compatible - see API docs)
+- [x] MapElements
+- [x] ReduceElements
+- [x] Transpose
+
+## Core lib
+- [x] Overall structure
+- [x] Create empty matrix
+- [x] Create matrix from values
+- [x] Helper functions for getting/setting elements
 
 ## Sanctuary definitions
 
@@ -61,3 +62,4 @@ The dev setup is configured to enable both unit testing and iterative browser-ba
 - [x] Write API docs
 - [ ] Show webgl demo via fiddle
 - [ ] Rewrite API docs to use type signatures rather than TS declarations
+- [ ] Official fantasy-land laws tests

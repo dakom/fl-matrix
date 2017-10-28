@@ -1,6 +1,6 @@
 {
   "name": "fl-matrix",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Fantasy-Land Matrix",
   "main": "./dist/fl-matrix.production.js",
   "typings": "./dist/typings/LibMain.d.ts",

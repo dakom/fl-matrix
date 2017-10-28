@@ -12,7 +12,7 @@ export class PreAllocated {
         const bar = matrixFromElementsDirect (3) (3) (directData);
         const scaleBy = (m:Matrix) => n => {
             
-            const nMap = m.map(el => el.column === el.row ? n : 0);
+            const nMap = m.mapElements(el => el.column === el.row ? n : 0);
         
             const myCompose = m.composePreAllocated (foo);
         

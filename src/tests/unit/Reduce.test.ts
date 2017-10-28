@@ -1,16 +1,100 @@
 
 import { expect } from 'chai';
-import {Matrix, emptyMatrix} from "../../lib/LibMain";
-import {matrixEquals} from "./TestLibs";
+import {Matrix, emptyMatrix, zeroMatrix} from "../../lib/LibMain";
+import {matrixEquals, S} from "./TestLibs";
 
-//Reduce is also tested by map since it implements reduce
+//ReduceElements and ReduceDirect are also tested via Map()
+
 export class Reduce {
-    
-    'Remove dimension'(done) {
-        const seq3d = emptyMatrix(3) (3).map(el => el.index);
+    'Regular'(done) {
+        const m = zeroMatrix (3) (3);
+        const empty = zeroMatrix (3) (3);
+
+        empty.reduce(dest => es => {
+            es.set((es.map(() => 1)));
+            dest.elements.set(es);
+            return dest;
+        })
+        (m);
+       
+        expect(
+            matrixEquals
+                (m)
+                ([ 1, 1, 1, 1, 1, 1, 1, 1, 1 ])
+        ).to.be.true;
+
+        expect(
+            matrixEquals
+                (empty)
+                ([ 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
+        ).to.be.true;
+
+        done();
+    }
+
+    'Fantasyland / Sanctuary'(done) {
+        const empty = zeroMatrix (3) (3);
+        const m = zeroMatrix (3) (3);
+
+        const copy = S.reduce(dest => es => {
+            es.set((es.map(() => 1)));
+            dest.elements.set(es);
+            return dest;
+        },m, empty);
+
+        expect(
+            matrixEquals
+                (m)
+                ([ 1, 1, 1, 1, 1, 1, 1, 1, 1 ])
+        ).to.be.true;
+
+        expect(
+            matrixEquals
+                (copy)
+                ([ 1, 1, 1, 1, 1, 1, 1, 1, 1 ])
+        ).to.be.true;
+
+        expect(
+            matrixEquals
+                (empty)
+                ([ 0, 0, 0, 0, 0, 0, 0, 0, 0 ])
+        ).to.be.true;
+
+        done();
+    }
+
+    'Direct'(done) {
+        const m = zeroMatrix (3) (3);
+        const empty = zeroMatrix (3) (3);
+
+        empty.reduceDirect(dest => es => {
+            es.set((es.map(() => 1)));
+            dest.elements.set(es);
+            return dest;
+        })
+        (m);
+        
+        expect(
+            matrixEquals
+                (m)
+                ([ 1, 1, 1, 1, 1, 1, 1, 1, 1 ])
+        ).to.be.true;
+
+        expect(
+            matrixEquals
+                (empty)
+                ([ 1, 1, 1, 1, 1, 1, 1, 1, 1 ])
+        ).to.be.true;
+
+        done();
+    }
+
+
+    'Elements - Remove dimension'(done) {
+        const seq3d = emptyMatrix(3) (3).mapElements(el => el.index);
         
         const seq2d = 
-            seq3d.reduce
+            seq3d.reduceElements
             (dest => el => {
                 if(el.column < dest.nCols) {
                     dest.elements[el.index] = el.value;
@@ -29,11 +113,11 @@ export class Reduce {
         done();
     }
 
-    'Add dimension'(done) {
-        const seq3d = emptyMatrix(3) (3).map(el => el.index);
+    'Elements - Add dimension'(done) {
+        const seq3d = emptyMatrix(3) (3).mapElements(el => el.index);
         
         const seq4d = 
-            seq3d.reduce
+            seq3d.reduceElements
             (dest => el => {
                 dest.elements[el.index] = el.value;
                 if(el.column == dest.nCols-2) {
