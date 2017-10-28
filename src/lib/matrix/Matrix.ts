@@ -58,8 +58,8 @@ export class Matrix {
     public setValueAtPositionDirect = setValueAtPositionDirect(this);
     public concat = concat(this);
     public concatPreAllocated = dest => concatPreAllocated(dest) (this);
-    public compose = other => compose (other) (this);
-    public composePreAllocated = dest => other => composePreAllocated (dest) (other) (this);
+    public compose = compose(this);
+    public composePreAllocated = dest => composePreAllocated (dest) (this);
     public toString = () => mToString(this);
     public log = () => console.log(this.toString());
     public id = () => id(this);
@@ -74,7 +74,7 @@ export class Matrix {
     public 'fantasy-land/concat' = concat(this);
     public 'fantasy-land/id' = () => id(this);
     public 'fantasy-land/equals' = equals(this);
-    public 'fantasy-land/compose' = compose(this); //S.compose flips it around for us.
+    public 'fantasy-land/compose' = other => compose (other) (this); //Sanctuary flips it around
     public 'fantasy-land/empty' = () => zeroMatrix(this.nCols) (this.nRows);
 }
 

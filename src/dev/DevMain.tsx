@@ -1,5 +1,5 @@
 import { transposePreAllocated } from '../lib/matrix/Matrix-Functions';
-import {zeroVector, matrixFromElements, vectorFromElements} from "../lib/LibMain";
+import {zeroVector, matrixFromElements, vectorFromElements, identityMatrix} from "../lib/LibMain";
 
 import {create, env} from 'sanctuary';
 const checkTypes = false; //process.env.BUILD_TYPE !== 'build';
@@ -16,6 +16,15 @@ const randomMatrix = (nCols:number) => (nRows:number) => {
     return matrixFromElements (nCols) (nRows) (elements);
 }
 
-const v = vectorFromElements([1,2,3,4]);
+//const r1 = randomMatrix (3) (3);
 
-v.transpose().log();
+const viewMatrix = identityMatrix (3) (3);
+viewMatrix.setValueAtPositionDirect (2) (0) (100);
+viewMatrix.setValueAtPositionDirect (2) (1) (100);
+
+const t = S.compose(viewMatrix);
+
+const v = vectorFromElements([3,4,1]);
+
+t(v).log();
+
