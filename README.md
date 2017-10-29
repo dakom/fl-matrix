@@ -12,9 +12,12 @@ _Probably production ready_ ... though this is new and the API may change withou
 
 # Examples
 
-1. A rotating cube [3d demo fiddle](http://jsfiddle.net/dakom/h2ub3v3b/)
-2. Lots of different examples in the [unit tests](src/tests/unit)
-3. A basic [2d demo fiddle](http://jsfiddle.net/dakom/hvvforby/) showing it in action with WebGL and Sanctuary.
+* WebGL + Sanctuary Demos:
+  * [Rotating 3D Cube](http://jsfiddle.net/dakom/h2ub3v3b/) - wrapping gl-matrix for model-view-projection changes
+  * [Moving 2D Plane](http://jsfiddle.net/dakom/hvvforby/) - manual adjusting of translation coordinates
+
+* Pure data wrangling:
+  * [Unit tests](src/tests/unit) - covers the different usage of most functions
 
 # Install
 
