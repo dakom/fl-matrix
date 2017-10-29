@@ -31,14 +31,14 @@ export class Compose {
         //Regular
         expect(
             arrayEquals 
-                (mat4.multiply(mat4.create(), r2.elements, r1.elements))
+                (mat4.multiply(mat4.create(), r2.elements as mat4, r1.elements as mat4))
                 (r2.compose(r1).elements)
         ).to.be.true;
 
         //Sanctuary
         expect(
             arrayEquals 
-                (mat4.multiply(mat4.create(), r2.elements, r1.elements))
+                (mat4.multiply(mat4.create(), r2.elements as mat4, r1.elements as mat4))
                 (S.compose(r2) (r1).elements)
         ).to.be.true;
 
@@ -56,7 +56,7 @@ export class Compose {
         r2.composePreAllocated (dest1) (r1)
         expect(
             arrayEquals 
-                (mat4.multiply(mat4.create(), r2.elements, r1.elements))
+                (mat4.multiply(mat4.create(), r2.elements as mat4, r1.elements as mat4))
                 (dest1.elements)
         ).to.be.true;
 
@@ -83,20 +83,23 @@ export class Compose {
         const r1 = randomMatrix (4) (4);
         const r2 = randomMatrix (4) (4);
         const r3 = randomMatrix (4) (4);
-
-        //Check the multiplication with gl-matrix
+        
+        const gResPartial = mat4.multiply(mat4.create(), r2.elements as mat4, r3.elements as mat4);
+        const gRes = mat4.multiply(mat4.create(), r1.elements as mat4, gResPartial);
 
         //Regular
-        const res1 = mat4.multiply(mat4.create(), mat4.multiply(mat4.create(), r1.elements, r2.elements), r3)
-        
-
         expect(
             arrayEquals 
-                (res1)
-                (r3.compose(r2.compose(r1)).elements)
+                (gRes)
+                (r1.compose(r2).compose(r3).elements)
         ).to.be.true;
 
-       
+       //Regular
+        expect(
+            arrayEquals 
+                (gRes)
+                (S.compose(r1) (S.compose(r2, r3)).elements)
+        ).to.be.true;
 
         done();
     }

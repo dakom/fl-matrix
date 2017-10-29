@@ -8,7 +8,7 @@ Read the [Api Docs](docs/API.md) for more detail.
 
 # Status
 
-_Not production ready_ ... almost, but not quite ;)
+_Probably production ready_ ... though this is new and the API may change without notice
 
 # Examples
 
@@ -36,8 +36,7 @@ The dev setup is configured to enable both unit testing and iterative browser-ba
 - [x] Concat (add)
 - [x] Category (identity)
 - [x] Setoid (equal)
-- [/] Semigroupoid / compose (multiply)
-  - [ ] Fix tests for 3-deep
+- [x] Semigroupoid / compose (multiply)
 - [x] Monoid (empty)
 
 ## Functional utils (not fp-compatible - see API docs)

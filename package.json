@@ -1,6 +1,6 @@
 {
   "name": "fl-matrix",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Fantasy-Land Matrix",
   "main": "./dist/fl-matrix.production.js",
   "typings": "./dist/typings/LibMain.d.ts",
@@ -22,6 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "4.0.4",
+    "@types/gl-matrix": "2.3.2",
     "@types/node": "8.0.47",
     "chai": "^4.1.2",
     "cross-env": "5.1.0",

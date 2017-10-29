@@ -60,8 +60,8 @@ export class Matrix {
     public concatPreAllocated = dest => concatPreAllocated(dest) (this);
     public compose = compose(this);
     public composePreAllocated = dest => composePreAllocated (dest) (this);
-    public toString = () => mToString(this);
-    public log = () => console.log(this.toString());
+    public toString = (precision?:number) => mToString(this) (precision);
+    public log = (precision?:number) => console.log(this.toString(precision));
     public id = () => id(this);
     public equals = equals(this);
     public transpose = () => transpose(this);
@@ -105,11 +105,14 @@ export const zeroMatrix = (nCols:number) => (nRows:number):Matrix => {
 }
 
 //Tostring
-export const mToString = (m1:Matrix):string => {
+export const mToString = (m1:Matrix) => (precision?:number):string => {
     let str = "";
 
+    const precisionNumber = (n:number) => 
+        precision === undefined ? n : n.toPrecision(precision);
+
     const largestDigits = m1.elements.reduce((highest, val) => {
-        const nDigits = val.toString().length;
+        const nDigits = precisionNumber(val).toString().length;
         return nDigits > highest ? nDigits : highest
     }, 0);
 
@@ -122,7 +125,7 @@ export const mToString = (m1:Matrix):string => {
 
     for(let r = 0; r < m1.nRows; r++) {
         for(let c = 0; c < m1.nCols; c++) {
-            const val = lpad (m1.getValueAtPosition (c) (r).toString()) (largestDigits);
+            const val = lpad (precisionNumber(m1.getValueAtPosition (c) (r)).toString()) (largestDigits);
             
             str += ` ${val}`;
         }

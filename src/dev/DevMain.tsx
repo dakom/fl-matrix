@@ -16,15 +16,25 @@ const randomMatrix = (nCols:number) => (nRows:number) => {
     return matrixFromElements (nCols) (nRows) (elements);
 }
 
-//const r1 = randomMatrix (3) (3);
+const r1 = randomMatrix (4) (4);
+const r2 = randomMatrix (4) (4);
+const r3 = randomMatrix (4) (4);
 
-const viewMatrix = identityMatrix (3) (3);
-viewMatrix.setValueAtPositionDirect (2) (0) (100);
-viewMatrix.setValueAtPositionDirect (2) (1) (100);
+const fRes = r1.compose(r2).compose(r3);
 
-const t = S.compose(viewMatrix);
+const gRes1 = mat4.multiply(mat4.create(), r2.elements as mat4, r3.elements as mat4);
+
+
+const gRes2 = mat4.multiply(mat4.create(), r1.elements as mat4, gRes1);
+
+
+console.log(fRes.elements);
+console.log(gRes2);
+
+//const m = matrixFromElements(4) (4) (mat4.fromRotation(mat4.create(), 2, [0,0,1]));
+
 
 const v = vectorFromElements([3,4,1]);
 
-t(v).log();
+//t(v).log();
 
