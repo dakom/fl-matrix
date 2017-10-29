@@ -12,8 +12,9 @@ _Probably production ready_ ... though this is new and the API may change withou
 
 # Examples
 
-1. Lots of different examples in the [unit tests](src/tests/unit)
-2. A basic [2d demo fiddle](http://jsfiddle.net/dakom/hvvforby/) showing it in action with WebGL and Sanctuary.
+1. A rotating cube [3d demo fiddle](http://jsfiddle.net/dakom/h2ub3v3b/)
+2. Lots of different examples in the [unit tests](src/tests/unit)
+3. A basic [2d demo fiddle](http://jsfiddle.net/dakom/hvvforby/) showing it in action with WebGL and Sanctuary.
 
 # Install
 
