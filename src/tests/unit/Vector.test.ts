@@ -1,6 +1,6 @@
 
 import { expect } from 'chai';
-import { Matrix, emptyMatrix, matrixFromElements, Vector, vectorFromElements } from "../../lib/LibMain";
+import { Matrix, emptyMatrix, vectorPropToIndex, matrixFromElements, Vector, vectorFromElements } from "../../lib/LibMain";
 import { S, matrixEquals, randomMatrix } from "./TestLibs";
 
 export class VectorTests {
@@ -34,4 +34,22 @@ export class VectorTests {
         done();
     }
 
+    'Prop Index'(done) {
+        expect(vectorPropToIndex("x")).to.equal(0);
+        expect(vectorPropToIndex("width")).to.equal(0);
+        expect(vectorPropToIndex("r")).to.equal(0);
+
+        expect(vectorPropToIndex("y")).to.equal(1);
+        expect(vectorPropToIndex("height")).to.equal(1);
+        expect(vectorPropToIndex("g")).to.equal(1);
+
+        expect(vectorPropToIndex("z")).to.equal(2);
+        expect(vectorPropToIndex("depth")).to.equal(2);
+        expect(vectorPropToIndex("b")).to.equal(2);
+
+        expect(vectorPropToIndex("w")).to.equal(3);
+        expect(vectorPropToIndex("hyperspace")).to.equal(3);
+        expect(vectorPropToIndex("a")).to.equal(3);
+        done();
+    }
 }

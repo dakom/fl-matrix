@@ -210,3 +210,7 @@ Vectors also have some property getters that operate as aliases:
   * w
   * hyperspace
   * a
+
+And a helper function to do the reverse lookup:
+
+* **vectorPropToIndex** :: (prop: string) => number;

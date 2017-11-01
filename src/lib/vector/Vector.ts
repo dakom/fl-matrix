@@ -71,3 +71,24 @@ export const vectorFromElements = (elements:ArrayLike<number>):Vector => {
 export const vectorFromElementsDirect = (elements:Float32Array):Vector =>
     new Vector(elements.length, elements);
 
+export const vectorPropToIndex = (prop:string) => {
+    switch(prop) {
+        case "x":
+        case "width":
+        case "r":
+            return 0;
+        case "y":
+        case "height":
+        case "g":
+            return 1;
+        case "z":
+        case "depth":
+        case "b":
+            return 2;
+        case "w":
+        case "hyperspace":
+        case "a":
+            return 3;
+        default: return -1;
+    }
+}
