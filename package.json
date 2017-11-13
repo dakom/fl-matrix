@@ -1,6 +1,6 @@
 {
   "name": "fl-matrix",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Fantasy-Land Matrix",
   "main": "./dist/fl-matrix.production.js",
   "typings": "./dist/typings/LibMain.d.ts",
@@ -22,17 +22,17 @@
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "4.0.4",
-    "@types/gl-matrix": "2.3.2",
-    "@types/node": "8.0.47",
+    "@types/gl-matrix": "2.4.0",
+    "@types/node": "8.0.51",
     "chai": "^4.1.2",
-    "cross-env": "5.1.0",
-    "fuse-box": "2.3.3",
-    "fuse-test-runner": "1.0.15",
+    "cross-env": "5.1.1",
+    "fuse-box": "3.0.0-next.7",
+    "fuse-test-runner": "1.0.16",
     "gl-matrix": "^2.4.0",
     "live-server": "^1.2.0",
     "rimraf": "2.6.2",
     "sanctuary": "0.13.2",
-    "typescript": "2.5.3",
-    "uglify-js": "3.1.5"
+    "typescript": "2.6.1",
+    "uglify-js": "3.1.9"
   }
 }
